@@ -14,8 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/travel_agency";
-        String user = "campus2023";
-        String password = "campus2023";
+        String user = "root";
+        String password = "12345";
         String resourcePath = "/sql/ddl.sql"; // Ruta dentro del directorio de recursos
 
         try (Connection conn = DriverManager.getConnection(url, user, password);

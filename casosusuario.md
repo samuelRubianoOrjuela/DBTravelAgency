@@ -764,7 +764,7 @@ rf
   - Si la revisión no está registrada, el sistema muestra un mensaje de error.
   - Si alguno de los campos obligatorios no es ingresado, el sistema muestra un mensaje de error.
 
-  ## Caso de Uso 12: Consultar Historial de Revisiones de Avión
+## Caso de Uso 12: Consultar Historial de Revisiones de Avión
 - **Descripción:** Permite consultar el historial de revisiones de mantenimiento de un avión específico.
 - **Actor Principal:** Técnico de Mantenimiento
 - **Precondiciones:** El usuario debe tener privilegios de técnico de mantenimiento.
@@ -803,3 +803,121 @@ rf
 - **Postcondiciones:** La revisión es eliminada de la base de datos.
 - **Excepciones:** Si la revisión no está registrada, el sistema muestra un mensaje de error.
 ---
+---
+
+## Caso de Uso 38: Buscar Vuelos
+**Descripción:** Permite a los clientes buscar vuelos disponibles según sus criterios de búsqueda.
+**Actor Principal:** Cliente
+**Precondiciones:** El cliente debe estar registrado en el sistema.
+**Flujo Principal:**
+1. El cliente selecciona la opción "Buscar Vuelos" en el menú principal.
+2. El sistema solicita al cliente ingresar los criterios de búsqueda: ciudad de origen, ciudad de destino, fecha de salida, fecha de regreso (opcional).
+3. El cliente ingresa los criterios de búsqueda.
+4. El sistema busca los vuelos disponibles en la base de datos.
+5. El sistema muestra una lista de vuelos que coinciden con los criterios de búsqueda.
+**Postcondiciones:** Se muestra una lista de vuelos disponibles al cliente.
+**Excepciones:** Si no se encuentran vuelos disponibles, el sistema muestra un mensaje de error.
+
+## Caso de Uso 39: Seleccionar Vuelo
+**Descripción:** Permite a los clientes seleccionar un vuelo de la lista de resultados de búsqueda.
+**Actor Principal:** Cliente
+**Precondiciones:** El cliente debe haber realizado una búsqueda de vuelos.
+**Flujo Principal:**
+1. El cliente selecciona la opción "Seleccionar Vuelo" de la lista de vuelos disponibles.
+2. El sistema muestra los detalles del vuelo seleccionado.
+3. El cliente confirma la selección del vuelo.
+
+**Postcondiciones:** El vuelo es seleccionado y almacenado en la sesión del cliente.
+**Excepciones:** Si el vuelo seleccionado ya no está disponible, el sistema muestra un mensaje de error.
+
+
+## Caso de Uso 43: Consultar Reserva de Vuelo
+**Descripción:** Permite a los clientes consultar los detalles de sus reservas de vuelo.
+**Actor Principal:** Cliente
+**Precondiciones:** El cliente debe tener una reserva de vuelo confirmada.
+**Flujo Principal:**
+1. El cliente selecciona la opción "Consultar Reserva de Vuelo" en el menú principal.
+2. El sistema solicita al cliente ingresar el identificador de la reserva.
+3. El cliente ingresa el identificador de la reserva.
+4. El sistema busca la información de la reserva en la base de datos.
+5. El sistema muestra los detalles de la reserva al cliente.
+**Postcondiciones:** La información de la reserva es mostrada al cliente.
+**Excepciones:** Si la reserva no está registrada, el sistema muestra un mensaje de error.
+
+## Caso de Uso 44: Cancelar Reserva de Vuelo
+**Descripción:** Permite a los clientes cancelar una reserva de vuelo existente.
+**Actor Principal:** Cliente
+**Precondiciones:** El cliente debe tener una reserva de vuelo confirmada.
+**Flujo Principal:**
+1. El cliente selecciona la opción "Cancelar Reserva de Vuelo" en el menú principal.
+2. El sistema solicita al cliente ingresar el identificador de la reserva.
+3. El cliente ingresa el identificador de la reserva.
+4. El sistema busca la reserva en la base de datos.
+5. El sistema solicita confirmación de cancelación al cliente.
+6. El cliente confirma la cancelación.
+7. El sistema cancela la reserva y actualiza el estado en la base de datos.
+8. El sistema envía un correo electrónico de confirmación al cliente.
+**Postcondiciones:** La reserva es cancelada y el estado actualizado en la base de datos.
+**Excepciones:**
+- Si la reserva no está registrada, el sistema muestra un mensaje de error.
+- Si la reserva no es cancelable según la política de la aerolínea, el sistema muestra un mensaje de error.
+
+## Caso de Uso 45: Modificar Reserva de Vuelo
+**Descripción:** Permite a los clientes modificar los detalles de una reserva de vuelo existente.
+**Actor Principal:** Cliente
+**Precondiciones:** El cliente debe tener una reserva de vuelo confirmada.
+**Flujo Principal:**
+
+1. El cliente selecciona la opción "Modificar Reserva de Vuelo" en el menú principal.
+2. El sistema solicita al cliente ingresar el identificador de la reserva.
+3. El cliente ingresa el identificador de la reserva.
+4. El sistema busca la reserva en la base de datos.
+5. El sistema muestra los detalles de la reserva al cliente.
+6. El cliente selecciona los detalles a modificar (e.g., fecha, pasajeros, asientos).
+7. El sistema valida y actualiza la información en la base de datos.
+8. El sistema confirma la modificación y envía un correo electrónico de confirmación al cliente.
+**Postcondiciones:** Los detalles de la reserva son actualizados en la base de datos.
+**Excepciones:**
+- Si la reserva no está registrada, el sistema muestra un mensaje de error.
+- Si la reserva no es modificable según la política de la aerolínea, el sistema muestra un mensaje de error.
+
+## Caso de Uso 40: Añadir Pasajeros
+**Descripción:** Permite a los clientes añadir los datos de los pasajeros que viajarán en el vuelo seleccionado.
+**Actor Principal:** Cliente
+**Precondiciones:** El cliente debe haber seleccionado un vuelo.
+**Flujo Principal:**
+1. El cliente selecciona la opción "Añadir Pasajeros".
+2. El sistema solicita al cliente ingresar los datos de los pasajeros: nombre, edad, tipo de documento, número de documento.
+3. El cliente ingresa los datos de los pasajeros.
+4. El sistema valida la información ingresada.
+5. El sistema guarda los datos de los pasajeros en la sesión del cliente.
+**Postcondiciones:** Los datos de los pasajeros son guardados en la sesión del cliente.
+**Excepciones:** Si alguno de los campos obligatorios no es ingresado, el sistema muestra un mensaje de error.
+
+## Caso de Uso 4 1: Seleccionar Asientos
+**Descripción:**  Permite a los clientes seleccionar los asientos para los pasajeros en el vuelo seleccionado.
+**Actor Principa l:** Cliente
+**Precondiciones:** El cliente debe haber añadido los datos de los pasajeros.
+**Flujo Principal:**
+1. El cliente selecciona la opción "Seleccionar Asientos".
+2. El sistema muestra un mapa de asientos disponibles para el vuelo seleccionado.
+3. El cliente selecciona los asientos para cada pasajero.
+4. El sistema valida la disponibilidad de los asientos seleccionados.
+5. El sistema guarda la selección de asientos en la sesión del cliente.
+**Postcondiciones:** Los asientos seleccionados son guardados en la sesión del cliente.
+**Excepciones:** Si los asientos seleccionados ya no están disponibles, el sistema muestra un mensaje de
+error.
+
+## Caso de Uso 42: Realizar Pago
+**Descripción:** Permite a los clientes realizar el pago para confirmar la reserva del vuelo.
+**Actor Principal:** Cliente
+**Precondiciones:** El cliente debe haber seleccionado los asientos.
+**Flujo Principal:**
+1. El cliente selecciona la opción "Realizar Pago".
+2. El sistema solicita al cliente ingresar los detalles de pago: método de pago, información de tarjeta de crédito/débito.
+3. El cliente ingresa los detalles de pago.
+4. El sistema valida la información de pago y procesa la transacción.
+5. El sistema confirma el pago exitoso y guarda la reserva en la base de datos.
+6. El sistema envía un correo electrónico de confirmación al cliente con los detalles de la reserva.
+**Postcondiciones:** La reserva del vuelo es confirmada y almacenada en la base de datos.
+**Excepciones:** Si el pago no es exitoso, el sistema muestra un mensaje de error.

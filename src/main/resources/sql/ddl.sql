@@ -166,148 +166,177 @@ CREATE TABLE trip_crews (
   CONSTRAINT fk_trip_crews_connections FOREIGN KEY ( id_connection ) REFERENCES flight_connections (id)
 );
  
- -- Inserción de tipos de documentos
-INSERT INTO document_types (name) VALUES
+INSERT INTO document_types (name) VALUES 
     ('Passport'),
     ('ID Card'),
-    ('Driver''s License'),
-    ('Visa');
+    ('Driver License'),
+    ('Residence Permit'),
+    ('Military ID'),
+    ('Student ID');
 
--- Inserción de clientes
-INSERT INTO customers (id, name, age, id_document) VALUES
-    ('CUST001', 'Alice Johnson', 28, 1),
-    ('CUST002', 'Bob Smith', 35, 2),
-    ('CUST003', 'Eve Parker', 42, 3),
-    ('CUST004', 'John Doe', 25, 1);
+INSERT INTO customers (id, name, age, id_document) VALUES 
+    ('CUST001', 'John Doe', 30, 1),
+    ('CUST002', 'Jane Smith', 25, 2),
+    ('CUST003', 'Alice Johnson', 28, 3),
+    ('CUST004', 'Bob Brown', 35, 4),
+    ('CUST005', 'Carol White', 22, 5),
+    ('CUST006', 'Eve Black', 27, 6);
 
--- Inserción de tarifas de vuelo
-INSERT INTO flight_fares (description, details, value) VALUES
-    ('Economy Class', 'Standard fare with no extra services', 250.00),
-    ('Business Class', 'Premium service with more legroom and meals', 800.00),
-    ('First Class', 'Luxury service with personalized attention and exclusive lounge access', 1500.00);
+INSERT INTO flight_fares (description, details, value) VALUES 
+    ('Economy Class', 'Standard economy seat', 100.000),
+    ('Business Class', 'Comfortable business seat', 300.000),
+    ('First Class', 'Luxurious first-class seat', 500.000),
+    ('Premium Economy', 'Upgraded economy seat', 150.000),
+    ('Budget', 'Basic economy seat', 80.000),
+    ('Student Discount', 'Special discount for students', 90.000);
 
--- Inserción de viajes
-INSERT INTO trips (trip_date, price_trip) VALUES
-    ('2024-07-15', 350.00),
-    ('2024-08-20', 280.00),
-    ('2024-09-10', 400.00),
-    ('2024-06-23', 150.00),
-    ('2024-06-24', 200.00),
-    ('2024-06-25', 175.00),
-    ('2024-06-26', 220.00),
-    ('2024-06-27', 180.00);
+INSERT INTO trips (trip_date, price_trip) VALUES 
+    ('2024-07-01', 1200.00),
+    ('2024-07-02', 1500.00),
+    ('2024-07-03', 1800.00),
+    ('2024-07-04', 2000.00),
+    ('2024-07-05', 2200.00),
+    ('2024-07-06', 2500.00);
 
--- Inserción de reservas de viaje
-INSERT INTO trip_booking (date, id_trip) VALUES
-    ('2024-06-25', 1),
-    ('2024-06-26', 2),
-    ('2024-06-27', 3);
+INSERT INTO trip_booking (date, id_trip) VALUES 
+    ('2024-06-01', 1),
+    ('2024-06-02', 2),
+    ('2024-06-03', 3),
+    ('2024-06-04', 4),
+    ('2024-06-05', 5),
+    ('2024-06-06', 6);
 
--- Inserción de detalles de reserva de viaje
-INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares) VALUES
+INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares) VALUES 
     (1, 'CUST001', 1),
     (2, 'CUST002', 2),
     (3, 'CUST003', 3),
-    (3, 'CUST004', 1);
+    (4, 'CUST004', 4),
+    (5, 'CUST005', 5),
+    (6, 'CUST006', 6);
 
--- Inserción de países
-INSERT INTO countries (id, name) VALUES
+INSERT INTO countries (id, name) VALUES 
     ('USA', 'United States'),
     ('CAN', 'Canada'),
-    ('GBR', 'United Kingdom');
+    ('MEX', 'Mexico'),
+    ('BRA', 'Brazil'),
+    ('ARG', 'Argentina'),
+    ('COL', 'Colombia');
 
--- Inserción de ciudades
-INSERT INTO cities (id, name, id_country) VALUES
-    ('NYC', 'New York City', 'USA'),
-    ('LON', 'London', 'GBR'),
-    ('TOR', 'Toronto', 'CAN');
+INSERT INTO cities (id, name, id_country) VALUES 
+    ('NYC', 'New York', 'USA'),
+    ('LAX', 'Los Angeles', 'USA'),
+    ('YVR', 'Vancouver', 'CAN'),
+    ('YYZ', 'Toronto', 'CAN'),
+    ('MEX', 'Mexico City', 'MEX'),
+    ('GDL', 'Guadalajara', 'MEX');
 
--- Inserción de aeropuertos
-INSERT INTO airports (id, name, id_city) VALUES
+INSERT INTO airports (id, name, id_city) VALUES 
     ('JFK', 'John F. Kennedy International Airport', 'NYC'),
-    ('LHR', 'Heathrow Airport', 'LON'),
-    ('YYZ', 'Toronto Pearson International Airport', 'TOR');
+    ('LAX', 'Los Angeles International Airport', 'LAX'),
+    ('YVR', 'Vancouver International Airport', 'YVR'),
+    ('YYZ', 'Toronto Pearson International Airport', 'YYZ'),
+    ('MEX', 'Mexico City International Airport', 'MEX'),
+    ('GDL', 'Guadalajara International Airport', 'GDL');
 
--- Inserción de puertas de embarque
-INSERT INTO gates (gate_number, id_airport) VALUES
+INSERT INTO gates (gate_number, id_airport) VALUES 
     ('A1', 'JFK'),
-    ('B2', 'LHR'),
-    ('C3', 'YYZ');
+    ('B2', 'LAX'),
+    ('C3', 'YVR'),
+    ('D4', 'YYZ'),
+    ('E5', 'MEX'),
+    ('F6', 'GDL');
 
--- Inserción de aerolíneas
-INSERT INTO airlines (name) VALUES
+INSERT INTO airlines (name) VALUES 
+    ('American Airlines'),
     ('Delta Airlines'),
-    ('British Airways'),
-    ('Air Canada');
+    ('United Airlines'),
+    ('Air Canada'),
+    ('Aeromexico'),
+    ('LATAM Airlines');
 
--- Inserción de roles de tripulación
-INSERT INTO tripulation_roles (name) VALUES
+INSERT INTO tripulation_roles (name) VALUES 
     ('Pilot'),
     ('Co-Pilot'),
-    ('Flight Attendant');
+    ('Flight Attendant'),
+    ('Ground Crew'),
+    ('Air Traffic Controller'),
+    ('Maintenance Technician');
 
--- Inserción de empleados
-INSERT INTO employees (id, name, id_rol, ingress_date, id_airline, id_airport) VALUES
-    ('EMP001', 'Michael Johnson', 1, '2019-05-10', 1, 'JFK'),
-    ('EMP002', 'Emily White', 3, '2020-01-15', 2, 'LHR'),
-    ('EMP003', 'David Brown', 2, '2018-08-20', 3, 'YYZ');
+INSERT INTO employees (id, name, id_rol, ingress_date, id_airline, id_airport) VALUES 
+    ('EMP001', 'Tom Hanks', 1, '2020-01-01', 1, 'JFK'),
+    ('EMP002', 'Emma Watson', 2, '2020-02-01', 2, 'LAX'),
+    ('EMP003', 'Robert Downey Jr.', 3, '2020-03-01', 3, 'YVR'),
+    ('EMP004', 'Chris Evans', 4, '2020-04-01', 4, 'YYZ'),
+    ('EMP005', 'Scarlett Johansson', 5, '2020-05-01', 5, 'MEX'),
+    ('EMP006', 'Chris Hemsworth', 6, '2020-06-01', 6, 'GDL');
 
--- Inserción de detalles de revisión
-INSERT INTO revision_details (id, description, id_employee) VALUES
-    ('REV001', 'Routine maintenance check', 'EMP001'),
-    ('REV002', 'Emergency repair of landing gear', 'EMP002'),
-    ('REV003', 'Inspection of avionics systems', 'EMP003');
+INSERT INTO revision_details (id, description, id_employee) VALUES 
+    ('REV001', 'Routine maintenance', 'EMP001'),
+    ('REV002', 'Engine check', 'EMP002'),
+    ('REV003', 'Avionics upgrade', 'EMP003'),
+    ('REV004', 'Fuel system check', 'EMP004'),
+    ('REV005', 'Navigation system check', 'EMP005'),
+    ('REV006', 'Safety equipment check', 'EMP006');
 
--- Inserción de fabricantes de aviones
-INSERT INTO manufacturers (name) VALUES
+INSERT INTO manufacturers (name) VALUES 
     ('Boeing'),
     ('Airbus'),
-    ('Embraer');
+    ('Embraer'),
+    ('Bombardier'),
+    ('Cessna'),
+    ('Gulfstream');
 
--- Inserción de modelos de aviones
-INSERT INTO models (name, id_manufacturer) VALUES
+INSERT INTO models (name, id_manufacturer) VALUES 
     ('737', 1),
     ('A320', 2),
-    ('E190', 3);
+    ('E175', 3),
+    ('CRJ700', 4),
+    ('Citation X', 5),
+    ('G650', 6);
 
--- Inserción de estados de aviones
-INSERT INTO statuses (name) VALUES
-    ('Active'),
+INSERT INTO statuses (name) VALUES 
+    ('Operational'),
     ('Under Maintenance'),
-    ('Retired');
+    ('Decommissioned'),
+    ('Retired'),
+    ('Stored'),
+    ('Sold');
 
--- Inserción de aviones
-INSERT INTO planes (plates, capacity, fabrication_date, id_status, id_model) VALUES
-    ('N12345', 180, '2018-10-25', 1, 1),
-    ('G-ABCD', 220, '2019-02-15', 2, 2),
-    ('C-FGHIJ', 150, '2017-07-20', 1, 3);
+INSERT INTO planes (plates, capacity, fabrication_date, id_status, id_model) VALUES 
+    ('N12345', 180, '2010-05-15', 1, 1),
+    ('N67890', 150, '2012-07-20', 1, 2),
+    ('N54321', 200, '2015-11-25', 2, 3),
+    ('N09876', 70, '2018-02-10', 1, 4),
+    ('N11223', 12, '2020-09-05', 1, 5),
+    ('N33445', 18, '2021-06-30', 1, 6);
 
--- Inserción de revisiones de aviones
-INSERT INTO revisions (revision_date, id_plane) VALUES
-    ('2023-12-05', 1),
-    ('2024-02-20', 2),
-    ('2024-06-10', 3);
+INSERT INTO revisions (revision_date, id_plane) VALUES 
+    ('2024-06-15', 1),
+    ('2024-06-16', 2),
+    ('2024-06-17', 3),
+    ('2024-06-18', 4),
+    ('2024-06-19', 5),
+    ('2024-06-20', 6);
 
--- Inserción de empleados por revisión
-INSERT INTO rev_employee (id_employee, id_revision) VALUES
+INSERT INTO rev_employee (id_employee, id_revision) VALUES 
     ('EMP001', 1),
     ('EMP002', 2),
-    ('EMP003', 3);
+    ('EMP003', 3),
+    ('EMP004', 4),
+    ('EMP005', 5),
+    ('EMP006', 6);
 
--- Inserción de conexiones de vuelo
-INSERT INTO flight_connections (connection_number, id_trip, id_plane, id_origin, id_destination) VALUES
-    ('FLIGHT001', 1, 1, 'JFK', 'LHR'),
-    ('FLIGHT002', 2, 2, 'LHR', 'YYZ'),
-    ('FLIGHT003', 3, 3, 'YYZ', 'JFK'),
-    ('FLIGHT003', 3, 3, 'JFK', 'LHR'),
-    ('CN12345', 4, NULL, 'JFK', 'LHR'),
-    ('CN12346', 5, NULL, 'YYZ', 'LHR'),
-    ('CN12347', 6, NULL, 'JFK', 'LHR'),
-    ('CN12348', 7, NULL, 'JFK', 'YYZ'),
-    ('CN12349', 8, NULL, 'YYZ', 'YYZ');
-
--- Inserción de tripulaciones de vuelo
-INSERT INTO trip_crews (id_employee, id_connection) VALUES
+INSERT INTO flight_connections (connection_number, id_trip, id_plane, id_origin, id_destination) VALUES 
+    ('CON001', 1, 1, 'JFK', 'YYZ'),
+    ('CON002', 2, 2, 'YYZ', 'MEX'),
+    ('CON003', 3, 3, 'MEX', 'GDL'),
+    ('CON004', 4, 4, 'GDL', 'LAX'),
+    ('CON005', 5, 5, 'LAX', 'YVR'),
+    ('CON006', 6, 6, 'YVR', 'JFK');
+INSERT INTO trip_crews (id_employee, id_connection) VALUES 
     ('EMP001', 1),
     ('EMP002', 2),
-    ('EMP003', 3);
+    ('EMP003', 3),
+    ('EMP004', 4),
+    ('EMP005', 5),
+    ('EMP006', 6);
