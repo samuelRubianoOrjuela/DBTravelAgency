@@ -40,6 +40,7 @@ CREATE TABLE trip_booking_details (
     id_trip_booking INT,
     id_customers VARCHAR(20),
     id_fares INT,
+    total_price DOUBLE,
     CONSTRAINT fk_details_trip_booking FOREIGN KEY (id_trip_booking) REFERENCES trip_booking(id),
     CONSTRAINT fk_booking_details_customers FOREIGN KEY (id_customers) REFERENCES customers(id),
     CONSTRAINT fk_booking_details_fares FOREIGN KEY (id_fares) REFERENCES flight_fares(id)
@@ -166,7 +167,8 @@ CREATE TABLE trip_crews (
   CONSTRAINT fk_trip_crews_connections FOREIGN KEY ( id_connection ) REFERENCES flight_connections (id)
 );
 --
-DROP PROCEDURE IF EXISTS SeleccionarVuelo;--
+DROP PROCEDURE IF EXISTS SeleccionarVuelo;
+--
 CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, IN idFares INT, IN Date DATE)
     BEGIN
         DECLARE idTrip INT;
@@ -182,7 +184,7 @@ CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, I
         INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares) VALUES
             (idTripBooking, idCustomer, idFares);
     END;
--- 
+--
 INSERT INTO document_types (name) VALUES 
     ('Passport'),
     ('ID Card'),
@@ -199,13 +201,10 @@ INSERT INTO customers (id, name, age, id_document) VALUES
     ('CUST005', 'Carol White', 22, 5),
     ('CUST006', 'Eve Black', 27, 6);
 --
-INSERT INTO flight_fares (description, details, value) VALUES 
-    ('Economy Class', 'Standard economy seat', 100.000),
-    ('Business Class', 'Comfortable business seat', 300.000),
-    ('First Class', 'Luxurious first-class seat', 500.000),
-    ('Premium Economy', 'Upgraded economy seat', 150.000),
-    ('Budget', 'Basic economy seat', 80.000),
-    ('Student Discount', 'Special discount for students', 90.000);
+INSERT INTO flight_fares (description, details, value) VALUES
+    ('Economy', 'Economy class fare', 150.000),
+    ('Business', 'Business class fare', 300.000),
+    ('First Class', 'First class fare', 500.000);
 --
 INSERT INTO trips (trip_date, price_trip) VALUES 
     ('2024-07-01', 1200.00),
@@ -213,7 +212,11 @@ INSERT INTO trips (trip_date, price_trip) VALUES
     ('2024-07-03', 1800.00),
     ('2024-07-04', 2000.00),
     ('2024-07-05', 2200.00),
-    ('2024-07-06', 2500.00);
+    ('2024-07-06', 2500.00),
+    ('2024-07-01', 1000.00),
+    ('2024-07-15', 1500.00),
+    ('2024-08-01', 2000.00);
+
 --
 INSERT INTO trip_booking (date, id_trip) VALUES 
     ('2024-06-01', 1),
@@ -223,13 +226,16 @@ INSERT INTO trip_booking (date, id_trip) VALUES
     ('2024-06-05', 5),
     ('2024-06-06', 6);
 --
-INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares) VALUES 
-    (1, 'CUST001', 1),
-    (2, 'CUST002', 2),
-    (3, 'CUST003', 3),
-    (4, 'CUST004', 4),
-    (5, 'CUST005', 5),
-    (6, 'CUST006', 6);
+INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares, total_price) VALUES 
+    (1, 'CUST001', 1, 1350.00),
+    (2, 'CUST002', 2, 1800.00),
+    (3, 'CUST003', 3, 2300.00),
+    (4, 'CUST004', 3, 2500.00),
+    (5, 'CUST005', 1, 2350.00),
+    (6, 'CUST006', 1, 2650.00),
+    (1, 'CUST001', 1, 1350.00),
+    (2, 'CUST002', 2, 1800.00),
+    (3, 'CUST003', 3, 2300.00);
 --
 INSERT INTO countries (id, name) VALUES 
     ('USA', 'United States'),
