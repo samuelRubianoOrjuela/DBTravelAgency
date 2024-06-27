@@ -167,7 +167,7 @@ CREATE TABLE trip_crews (
 );
 --
 DROP PROCEDURE IF EXISTS SeleccionarVuelo;--
-CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, IN Date DATE, IN idFares INT)
+CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, IN idFares INT, IN Date DATE)
     BEGIN
         DECLARE idTrip INT;
         DECLARE idTripBooking INT;
