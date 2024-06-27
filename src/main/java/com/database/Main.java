@@ -24,7 +24,7 @@ public class Main {
              BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
 
             String content = br.lines().collect(Collectors.joining(System.lineSeparator()));
-            String[] commands = content.split(";");
+            String[] commands = content.split("--");
 
             for (String command : commands) {
                 if (!command.trim().isEmpty()) {

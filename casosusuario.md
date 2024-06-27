@@ -807,9 +807,13 @@ rf
 
 ## Caso de Uso 38: Buscar Vuelos
 **Descripción:** Permite a los clientes buscar vuelos disponibles según sus criterios de búsqueda.
+
 **Actor Principal:** Cliente
+
 **Precondiciones:** El cliente debe estar registrado en el sistema.
+
 **Flujo Principal:**
+
 1. El cliente selecciona la opción "Buscar Vuelos" en el menú principal.
 2. El sistema solicita al cliente ingresar los criterios de búsqueda: ciudad de origen, ciudad de destino, fecha de salida, fecha de regreso (opcional).
 3. El cliente ingresa los criterios de búsqueda.
