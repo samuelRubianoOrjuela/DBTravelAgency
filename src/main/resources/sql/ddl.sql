@@ -173,16 +173,24 @@ CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, I
     BEGIN
         DECLARE idTrip INT;
         DECLARE idTripBooking INT;
+        DECLARE totalPrice DOUBLE;
         
         SELECT id_trip INTO idTrip FROM flight_connections WHERE id = idFlight;
         
+        SELECT (f.value + t.price_trip) INTO totalPrice
+        FROM trip_booking_details td
+        JOIN flight_fares f ON td.id_fares = f.id
+        JOIN trip_booking tb ON td.id_trip_booking = tb.id
+        JOIN trips t ON tb.id_trip = t.id
+        WHERE f.id = idFares AND t.id = idTrip;
+
         INSERT INTO trip_booking (date, id_trip) VALUES
         (Date, idTrip);
 
         SELECT MAX(id) INTO idTripBooking FROM trip_booking;
 
-        INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares) VALUES
-            (idTripBooking, idCustomer, idFares);
+        INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares, total_price) VALUES
+            (idTripBooking, idCustomer, idFares, totalPrice);
     END;
 --
 INSERT INTO document_types (name) VALUES 
