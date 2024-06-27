@@ -182,7 +182,8 @@ CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, I
         JOIN flight_fares f ON td.id_fares = f.id
         JOIN trip_booking tb ON td.id_trip_booking = tb.id
         JOIN trips t ON tb.id_trip = t.id
-        WHERE f.id = idFares AND t.id = idTrip;
+        WHERE f.id = idFares AND t.id = idTrip
+        LIMIT  1;
 
         INSERT INTO trip_booking (date, id_trip) VALUES
         (Date, idTrip);
@@ -240,10 +241,7 @@ INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares, total
     (3, 'CUST003', 3, 2300.00),
     (4, 'CUST004', 3, 2500.00),
     (5, 'CUST005', 1, 2350.00),
-    (6, 'CUST006', 1, 2650.00),
-    (1, 'CUST001', 1, 1350.00),
-    (2, 'CUST002', 2, 1800.00),
-    (3, 'CUST003', 3, 2300.00);
+    (6, 'CUST006', 1, 2650.00);
 --
 INSERT INTO countries (id, name) VALUES 
     ('USA', 'United States'),
