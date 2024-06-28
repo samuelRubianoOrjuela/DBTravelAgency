@@ -40,10 +40,24 @@ CREATE TABLE trip_booking_details (
     id_trip_booking INT,
     id_customers VARCHAR(20),
     id_fares INT,
-    total_price DOUBLE,
+    total_price DOUBLE NOT NULL,
     CONSTRAINT fk_details_trip_booking FOREIGN KEY (id_trip_booking) REFERENCES trip_booking(id),
     CONSTRAINT fk_booking_details_customers FOREIGN KEY (id_customers) REFERENCES customers(id),
     CONSTRAINT fk_booking_details_fares FOREIGN KEY (id_fares) REFERENCES flight_fares(id)
+);
+--
+CREATE TABLE payment_methods (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(30)
+);
+--
+CREATE TABLE payments (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_trip_booking_details INT,
+    id_payment_method INT,
+    card_number INT,
+    CONSTRAINT fk_payments_booking_details FOREIGN KEY (id_trip_booking_details) REFERENCES trip_booking_details (id),
+    CONSTRAINT fk_payments_payment_method FOREIGN KEY (id_payment_method) REFERENCES payment_methods (id)
 );
 --
 CREATE TABLE countries (
@@ -169,22 +183,13 @@ CREATE TABLE trip_crews (
 --
 DROP PROCEDURE IF EXISTS SeleccionarVuelo;
 --
-CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, IN idFares INT, IN Date DATE)
+CREATE PROCEDURE SeleccionarVuelo (IN idCustomer VARCHAR(20), IN idFlight INT, IN idFares INT, IN Date DATE, IN totalPrice DOUBLE)
     BEGIN
         DECLARE idTrip INT;
         DECLARE idTripBooking INT;
-        DECLARE totalPrice DOUBLE;
         
         SELECT id_trip INTO idTrip FROM flight_connections WHERE id = idFlight;
         
-        SELECT (f.value + t.price_trip) INTO totalPrice
-        FROM trip_booking_details td
-        JOIN flight_fares f ON td.id_fares = f.id
-        JOIN trip_booking tb ON td.id_trip_booking = tb.id
-        JOIN trips t ON tb.id_trip = t.id
-        WHERE f.id = idFares AND t.id = idTrip
-        LIMIT  1;
-
         INSERT INTO trip_booking (date, id_trip) VALUES
         (Date, idTrip);
 
@@ -242,6 +247,13 @@ INSERT INTO trip_booking_details (id_trip_booking, id_customers, id_fares, total
     (4, 'CUST004', 3, 2500.00),
     (5, 'CUST005', 1, 2350.00),
     (6, 'CUST006', 1, 2650.00);
+--
+INSERT INTO payment_methods (name) VALUES 
+    ('Credit Card'),
+    ('Debit Card'),
+    ('PayPal'),
+    ('Cash'),
+    ('Bank Transfer');
 --
 INSERT INTO countries (id, name) VALUES 
     ('USA', 'United States'),
